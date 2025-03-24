@@ -1,8 +1,22 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { login } from "api";
 import "./index.scss";
+import { AuthContext } from "contexts/AuthContext";
 
 export const Login = () => {
-  const handleLogin = async () => {
-    // 2
+  const { setToken } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogin = async (): Promise<void> => {
+    try {
+      const token = await login("hardcoded-user-1");
+      setToken(token);
+      navigate("/")
+    } catch (error) {
+      console.error('Login error:', error);
+      alert("Error during log in. Try Again!")
+    }
   };
 
   return (
