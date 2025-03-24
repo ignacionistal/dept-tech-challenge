@@ -23,9 +23,19 @@ export const LaunchesList = () => {
     );
   };
 
-  const loadLaunches = async () => {
+  const updateLaunchFavorite = (flight_number: number): void => {
+    const updatedLaunches = launches.map((launch: Launch) => {
+      if(launch.flight_number === flight_number) {
+        return {...launch, favorite: !launch.favorite};
+      }
+      return launch;
+    });
+    setLaunches(updatedLaunches);
+  }
+
+  const loadLaunches = async (): Promise<void> => {
     try {
-      const launches = await getLaunches();
+      const launches: Launch[] = await getLaunches();
       setLaunches(launches);
     } catch (error) {
       console.log(error);
@@ -56,7 +66,7 @@ export const LaunchesList = () => {
             <LaunchCard
               key={launch.flight_number}
               launch={launch}
-              updateFavorite={() => {}}
+              updateFavorite={updateLaunchFavorite}
             />
           ))}
       </div>
