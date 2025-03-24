@@ -12,11 +12,14 @@ export const LaunchesList = () => {
   const { showAll } = useContext(ModeContext);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const filterLaunches = () => {
+  const filterLaunches = (): void => {
     setCurrentPage(1);
-    // 3
     return setFilteredLaunches(
-      launches.filter((l: Launch) => showAll || l.favorite)
+      launches.filter((launch: Launch) => {
+        const matchesLaunchSearch = launch.mission_name.toLowerCase().includes(searchText.toLowerCase());
+        const matchesFavoriteStatus = showAll || launch.favorite;
+        return matchesLaunchSearch && matchesFavoriteStatus;
+      })
     );
   };
 
