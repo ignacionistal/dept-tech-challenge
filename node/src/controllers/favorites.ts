@@ -35,8 +35,11 @@ export const removeFavorite = async (req, res) => {
     .json(`Favorite for ${req.params.flight_number} has been removed.`);
 };
 
-export const getFavorites = async (_, res) => {
+export const getFavorites = async (req, res) => {
+  const user_id = req.currentUserId;
   const favoritesRepo = AppDataSource.getRepository(Favorites);
-  const favs = await favoritesRepo.find();
+  const favs = await favoritesRepo.find({
+    where: { user_id }
+  });
   return res.status(200).json(favs);
 };

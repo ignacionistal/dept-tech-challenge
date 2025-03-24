@@ -1,7 +1,8 @@
-// import attachCurrentUser from '../middlewares/attachCurrentUser'
-// import { getLaunches, addLaunchToUserFavorites, removeLaunchFromUserFavorites} from '../../controllers/launches'
-import { getFavorites } from "../controllers/favorites";
+import { addFavorite, getFavorites, removeFavorite } from "../controllers/favorites";
+import { auth } from "../middlewares/auth";
 
 export default (router) => {
-  router.get("/favorites", getFavorites);
+  router.get("/favorites", auth, getFavorites);
+  router.post("/launches/:flight_number/favorite", auth, addFavorite);
+  router.delete("/launches/:flight_number/favorite", auth, removeFavorite);
 };
