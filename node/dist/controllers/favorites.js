@@ -46,9 +46,12 @@ const removeFavorite = (req, res) => __awaiter(void 0, void 0, void 0, function*
         .json(`Favorite for ${req.params.flight_number} has been removed.`);
 });
 exports.removeFavorite = removeFavorite;
-const getFavorites = (_, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getFavorites = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const user_id = req.currentUserId;
     const favoritesRepo = AppDataSource.getRepository(Favorites);
-    const favs = yield favoritesRepo.find();
+    const favs = yield favoritesRepo.find({
+        where: { user_id }
+    });
     return res.status(200).json(favs);
 });
 exports.getFavorites = getFavorites;

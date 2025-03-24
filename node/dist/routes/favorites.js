@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// import attachCurrentUser from '../middlewares/attachCurrentUser'
-// import { getLaunches, addLaunchToUserFavorites, removeLaunchFromUserFavorites} from '../../controllers/launches'
 const favorites_1 = require("../controllers/favorites");
+const auth_1 = require("../middlewares/auth");
 exports.default = (router) => {
-    router.get("/favorites", favorites_1.getFavorites);
+    router.get("/favorites", auth_1.auth, favorites_1.getFavorites);
+    router.post("/launches/:flight_number/favorite", auth_1.auth, favorites_1.addFavorite);
+    router.delete("/launches/:flight_number/favorite", auth_1.auth, favorites_1.removeFavorite);
 };
