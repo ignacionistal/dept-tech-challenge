@@ -37,7 +37,11 @@ export const LaunchesList = () => {
 
   return (
     <div className="launches-list-container">
-      <Search value={searchText} onChange={setSearchText} />
+      <Search 
+        value={searchText} 
+        onChange={setSearchText}
+        placeholder="Search all launches..."
+      />
       <div className="launches-list">
         {filteredLaunches
           .filter(

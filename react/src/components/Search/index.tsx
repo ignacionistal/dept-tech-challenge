@@ -1,4 +1,4 @@
-import { useState, SetStateAction, Dispatch } from "react";
+import { SetStateAction, Dispatch, ChangeEvent } from "react";
 import searchIcon from "assets/images/search.svg";
 import closeIcon from "assets/images/close.svg";
 import "./index.scss";
@@ -6,12 +6,15 @@ import "./index.scss";
 interface SeachProps {
   value: string;
   onChange: Dispatch<SetStateAction<string>>;
+  placeholder?: string;
 }
 
-export const Search = ({ value, onChange }: SeachProps) => {
-  const clear = () => {
+export const Search = ({ value, onChange, placeholder }: SeachProps) => {
+  const clear = (): void => {
     onChange("");
   };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => onChange(event.target.value);
 
   return (
     <div className="search-input">
@@ -19,9 +22,12 @@ export const Search = ({ value, onChange }: SeachProps) => {
       <input
         type="text"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        onChange={handleChange}
       />
-      <img className="close-icon" src={closeIcon} onClick={clear} alt="Close" />
+      {value && (
+        <img className="close-icon" src={closeIcon} onClick={clear} alt="Close" />
+      )}
     </div>
   );
 };

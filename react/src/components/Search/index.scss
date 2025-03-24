@@ -1,1 +1,21 @@
-// 2
+.search-input {
+  border: 1px solid #595959;
+  border-radius: 8px;
+  color: #595959;
+  display: flex;
+  padding: 7px;
+  max-width: 400px;
+
+  .search-icon {
+    width: 14px;
+  }
+
+  input {
+    border: none;
+    background-color: transparent;
+    flex-grow: 1;
+    outline: none;
+    color: #595959;
+  }
+}
+  
